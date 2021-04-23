@@ -1,0 +1,144 @@
+html {
+    width: 70%;
+    height: 100%;
+    min-height: 100%;
+    margin: 0 auto;
+    font-size: 16px;
+    background-color: #FFFFFF;
+}
+body {
+    height: 100%;
+    min-height: 100%;
+    line-height: 1.75;
+    background-color: #FFFFFF;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 300;
+    line-height: 1.5;
+    text-transform: uppercase;
+    margin: 0 0 1.5rem 0;
+}
+
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+  text-align: center;
+      padding: 12px;
+}
+
+.column2 {
+  float: right;
+  width: 66.66%;
+  text-align: center;
+      padding: 12px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#alter_GPX {
+    display: none;
+}
+
+#alter_name {
+    display: none;
+}
+
+#rename_box {
+   display: none;
+}
+
+#query1 {
+    display: none;
+}
+#query2 {
+    display: none;
+}
+#query3 {
+    display: none;
+}
+#query4 {
+    display: none;
+}
+#query5 {
+    display: none;
+}
+
+
+h2, form {
+      text-align: center;
+}
+
+th, td {
+  padding: 5px;
+  text-align: center;
+}
+
+a:link:hover {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    text-decoration: underline;
+    cursor: pointer;
+    cursor: hand;
+}
+input[type=submit], button {
+    cursor: pointer;
+    cursor: hand;
+}
+input[type=button], button {
+    cursor: pointer;
+    cursor: hand;
+}
+@media(max-width: 900px) {
+    html {
+        font-size: 14px !important;
+        width: 80% !important;
+    }
+}
+@media(max-width: 480px) {
+    html {
+        font-size: 12px !important;
+        width: 90% !important;
+    }
+}
+@media(max-width: 320px) {
+    html {
+        font-size: 12px !important;
+        width: 100% !important;
+    }
+}
+
+#file_log #file_select {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#query {
+    background-color: #111111;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 4rem;
+    text-align: center;
+}
+#query a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+}
+#query a:hover {
+    color: cyan;
+}

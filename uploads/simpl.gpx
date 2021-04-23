@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" creator="vrupat 2" version="1.1">
+  <rte>
+    <name>None</name>
+    <rtept lat="2.000000" lon="2.000000"/>
+    <rtept lat="2.000000" lon="2.000000"/>
+  </rte>
+  <rte>
+    <name>3</name>
+    <rtept lat="2.000000" lon="2.000000">
+      <name>2</name>
+    </rtept>
+    <rtept lat="2.000000" lon="2.000000">
+      <name>2</name>
+    </rtept>
+  </rte>
+  <rte>
+    <name>3</name>
+    <rtept lat="2.000000" lon="2.000000">
+      <name>2</name>
+    </rtept>
+    <rtept lat="2.000000" lon="2.000000">
+      <name>2</name>
+    </rtept>
+  </rte>
+  <rte>
+    <name/>
+    <rtept lat="2.000000" lon="2.000000">
+      <name>2</name>
+    </rtept>
+    <rtept lat="2.000000" lon="2.000000">
+      <name>2</name>
+    </rtept>
+  </rte>
+  <rte>
+    <name/>
+    <rtept lat="1.000000" lon="1.000000">
+      <name>1</name>
+    </rtept>
+  </rte>
+</gpx>

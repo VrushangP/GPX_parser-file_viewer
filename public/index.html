@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>GPS Data Viewer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Vrushang Patel">
+    <!-- Load jquery, bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <!-- Custom CSS End -->
+</head>
+<body>
+    <h2>GPS Data Viewer</h2>
+    <form ref='uploadForm' id='uploadForm'
+      action='/upload'
+      method='post'
+      encType="multipart/form-data">
+      <div class="form-group">
+      	<input type="file" name="uploadFile" class="btn btn-secondary">
+      	<input type='submit' value='Upload' class="btn btn-secondary">
+      </div>
+   </form>
+   <h5>File Log Panel</h5>
+    <section id="file_log">
+      <div class="text_box">
+      </hr>
+          <table id = "table" class = "table" style="width:100%">
+            <tr>
+              <th>File Name (downloadable)</th>
+              <th>Version</th>
+              <th>Creator</th>
+              <th># of waypoint</th>
+              <th># of Routes</th>
+              <th># of Tracks</th>
+            </tr>
+          </table>
+        </hr>
+      </div>
+    </section>
+
+    <br>
+
+    <h5>GPX View Panel</h5>
+    <p>Rename and Add Route show up once you store data in the database and select a file</p>
+    <select id="file_select" onchange="new_row('alter_GPX',this)">
+      <option value="Select A File">Select A File</option>
+    </select>
+
+    <div id="alter_GPX" class="row">
+      <section id="GPX_view">
+        <div class ="text_box">
+          </hr>
+          <table id = "table2" class = "table" style="width:100%">
+            <tr>
+              <th>Component</th>
+              <th>Name</th>
+              <th>Number of Points</th>
+              <th>Length</th>
+              <th>Loop</th>
+            </tr>
+          </table>
+          </hr>
+        </div>
+      </section>
+      <hr>
+
+      <div class="column">
+        <h6>Other Data</h6>
+        <select id="otherdata_select" onchange="otherData('alter_name', this)">
+        </select>
+        <div id="alter_name">
+          <table id = "otherdata_table" class = "table" style="width:100%">
+            <tr>
+              <th>Name</th>
+              <th>Value</th>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="column">
+       <h6>Rename</h6>
+       <select id="rename_select" onchange="rename('rename_box',this)">
+         <option value="Select A File">Select A File</option>
+       </select>
+       <div id="rename_box">
+         <form >
+          <label for="fname">First name:</label><br>
+          <input type="text" id="rename_route_track" name="fname" value="Enter New Name"><br>
+          <input type="button" onclick = "rename_func(rename_route_track)" value="Submit">
+        </form>
+       </div>
+      </div>
+
+      <div class="column">
+
+        <h6>Add Route/Track</h6>
+        <select id="route/track">
+          <option value="Route">Route</option>
+          <option value="Track">Track</option>
+        </select>
+        <label for="fname">Enter New Name</label>
+        <input type="text" id="route_track_name" value="">
+        <label for="fname"># of Waypoints</label>
+        <input type="text" class = "short" id="waypoint_num" value="">
+        <button type="button" onclick="add_waypoint_boxes()">Submit</button>
+
+        <div class="row">
+          <div class="column">  
+            <label for="fname">Point Name</label>
+            <div id='name_box'>  </div>
+          </div>
+          <div class="column">  
+            <label for="fname">Latitude:</label>
+            <div id='lat_box'>  </div>
+          </div>
+          <div class="column"> 
+            <label for="fname">Longitude</label>
+            <div id='lon_box'>  </div>
+          </div>
+
+        </div>
+        <div id='name_boxt'>  </div>
+        <p id='blah'> text</p>
+
+        <button type="button" onclick="new_route()">Add Route</button>
+
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="column">
+        <h5>Get Inbetween</h5>
+
+        <section id="new_GPX">
+          <div class="text_box">
+            </hr>
+            <form >
+              <label for="fname">File Name:</label><br>
+              <input type="text" id="Lat_1" name="fname" value="Enter Start Latitude"><br>
+              <input type="text" id="Long_1" name="fname" value="Enter Start Longitude"><br>
+              <input type="text" id="Lat_2" name="fname" value="Enter End Latitude"><br>
+              <input type="text" id="Long_2" name="fname" value="Enter End Longitude"><br>
+              <input type="text" id="delta" name="fname" value="Enter Delta"><br>
+
+              <input type="button" onclick = "inbetween()" value="Submit">
+            </form>
+
+            </hr>
+          </div>
+        </section>
+      </div>
+
+      <div class="column">
+        <h5>Create GPX</h5>
+
+        <section id="new_GPX">
+          <div class="text_box">
+            </hr>
+            <form >
+              <label for="fname">File Name:</label><br>
+              <input type="text" id="new_GPX_name" name="fname" value="Enter New Name"><br>
+              <input type="text" id="new_ns" name="fname" value="Enter New Namespace"><br>
+              <input type="text" id="new_version" name="fname" value="Enter New Version"><br>
+              <input type="text" id="new_creator" name="fname" value="Enter New Creator"><br>
+
+              <input type="button" onclick = "Create_new()" value="Submit">
+            </form>
+
+            </hr>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <footer id="query">
+        <div class="content">
+          <form ref='someform' id='SQL_server'>
+            <div class="row">
+              <div class="column">
+                <label for="username">Username:</label>
+                <input type="text" id="username">
+              </div>
+              <div class="column">
+                <label for="password">Password:</label>
+                <input type="text" id="password">
+              </div>
+              <div class="column">
+                <label for="server_name">Data Base Name:</label>
+                <input type="text" id="server_name">
+              </div>
+            </div>
+            <input type='button'  id = 'SQL_submit' onclick= "login()" value="Submit">
+          </form>
+          <br>
+          <form ref='someform'>
+            <input type='button' id = 'Store All Data' onclick = "store()" value = "Store All Data">
+          </form>
+          <br>
+          <form ref='someform'>
+            <input type='button' id = 'Display DB Status' onclick = "DisplayDSStat()" value = "Display DB Status">
+          </form>
+          <br>
+          <form ref='someform'>
+            <input type='button' id = 'Clear DB' onclick = "ClearDB()" value = "Clear All Data">
+          </form>
+            <div>
+            <p id= 'insert here'>
+              text
+            </p>
+            <!-- <table id = "sql_FILE" class = "table" style="width:100%">
+              <tr>
+                <th>GPX ID</th>
+                <th>File Name (downloadable)</th>
+                <th>Version</th>
+                <th>Creator</th>
+              </tr>
+            </table> -->
+            <h5>Queries</h5>
+            <select id="queries_select" onchange="display_query('query1', 'query2', 'query3', 'query4', 'query5', this)">
+              <option value="Select A Standard Query">Select A Standard Query</option>
+              <option value="Display all routes">Display all routes</option>
+              <option value="Display the routes from a specific file">Display the routes from a specific file</option>
+              <option value="Display all points of a specific route">Display all points of a specific route</option>
+              <option value="Display all points from a specific file">Display all points from a specific file</option>
+              <option value="Display the N shortest/longest routes from a specific file.">Display the N shortest/longest routes from a specific file.</option>
+            </select>
+            
+            <div id="query1" class="row">
+              <p> 1234</p>
+              <select id='sort_select'>
+                <option value="route_name">Sort By Route Name</option>
+                <option value="route_len">Sort By Route Length</option>
+              </select>
+              <input type='button' onclick = "show_all_routes()" value = "Show All Routes">
+              <table id = "sql_ROUTE" class = "table" style="width:100%">
+                <tr>
+                  <th>ROUTE ID</th>
+                  <th>Route Name</th>
+                  <th>Length</th>
+                  <th>GPX ID</th>
+                </tr>
+              </table>
+            </div>
+            <div id="query2" class="row">
+              <p> 12345</p>
+              <select id='choose_file'>
+                <option value="Select A File">Select A File</option>
+              </select>
+              <select id='sort_select2'>
+                <option value="route_name">Sort By Route Name</option>
+                <option value="route_len">Sort By Route Length</option>
+              </select>
+              <input type='button' onclick = "show_file_routes()" value = "Show All Routes">
+              <table id = "sql_ROUTE2" class = "table" style="width:100%">
+                <tr>
+                  <th>ROUTE ID</th>
+                  <th>Route Name</th>
+                  <th>Length</th>
+                  <th>GPX ID</th>
+                </tr>
+              </table>
+            </div>
+            <div id="query3" class="row">
+              <p> 12346</p>
+              <select id='route_selec'>
+                <option value="Select A Route">Select A Route</option>
+              </select>
+              <input type='button' onclick = "show_route_points()" value = "Show All Points">
+              <table id = "sql_POINT" class = "table" style="width:100%">
+                <tr>
+                  <th>POINT ID</th>
+                  <th>Point Index</th>
+                  <th>Latitude</th>
+                  <th>Longitude</th>
+                  <th>Point Name</th>
+                  <th>ROUTE ID</th>
+                </tr>
+              </table>
+            </div>
+            <div id="query4" class="row">
+              <p> 12347</p>
+              <select id='choose_file2'>
+                <option value="Select A File">Select A File</option>
+              </select>
+              <select id='sort_select3'>
+                <option value="route_name">Sort By Route Name</option>
+                <option value="route_len">Sort By Route Length</option>
+              </select>
+              <input type='button' onclick = "show_file_points()" value = "Show All Points">
+  
+              <table id = "sql_POINT2" class = "table" style="width:100%">
+                <tr>
+                  <th>POINT ID</th>
+                  <th>Point Index</th>
+                  <th>Latitude</th>
+                  <th>Longitude</th>
+                  <th>Point Name</th>
+                  <th>ROUTE ID</th>
+                </tr>
+              </table>
+            </div>
+            <div id="query5" class="row">
+              <p> 12348</p>
+              <input type='button' onclick = "show_N_routes()" value = "Show All Points">
+              <select id='choose_file3'>
+                <option value="Select A File">Select A File</option>
+              </select>
+              <input type="text" id="show_N" name="fname" value="Enter N"><br>
+              <select id='order_select'>
+                <option value="DESN">Show Largest</option>
+                <option value="ASEN">Show Smallest</option>
+              </select>
+              <select id='order_select2'>
+                <option value="Name">Order by Name</option>
+                <option value="Length">Order by Length</option>
+              </select>
+
+
+              <table id = "sql_ROUTE3" class = "table" style="width:100%">
+                <tr>
+                  <th>ROUTE ID</th>
+                  <th>Route Name</th>
+                  <th>Length</th>
+                  <th>GPX ID</th>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+    </footer>
+    <script src="/index.js">
+    </script>
+</body>
+</html>

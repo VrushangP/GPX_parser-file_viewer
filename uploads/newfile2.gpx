@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" creator="Enter New Createe" version="1.1">
+  <rte>
+    <name>1</name>
+    <rtept lat="1.000000" lon="1.000000"/>
+  </rte>
+  <rte>
+    <name>nam</name>
+    <rtept lat="1.000000" lon="1.000000">
+      <name>1</name>
+    </rtept>
+  </rte>
+</gpx>
